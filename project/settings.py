@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'produto',
+    'pedido',
+    'perfil',
 
     # TODO: remover django toolbar
     "debug_toolbar",
@@ -64,7 +67,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates'
+            BASE_DIR / 'template'
         ],
         'APP_DIRS': True,
         'OPTIONS': {
