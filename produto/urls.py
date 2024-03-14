@@ -9,7 +9,7 @@ app_name = 'produto'
 
 urlpatterns = [
     path('', ListaProduto.as_view(), name='lista'),
-    path('<slug:slug>', DetalheProduto.as_view(), name='detalhe'),
+    
     path(
         'adicionaraocarrinho/', AdicionarAoCarrinho.as_view(),
         name='adicionaraocarrinho'
@@ -23,4 +23,5 @@ urlpatterns = [
         name='carrinho'
         ),
     path('finalizar/', Finalizar.as_view(), name='finalizar'),
+    path('<slug:slug>', DetalheProduto.as_view(), name='detalhe'),
 ]
