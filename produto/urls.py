@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     ListaProduto, DetalheProduto,
     AdicionarAoCarrinho, RemoverDoCarrinho,
-    Carrinho, Finalizar
+    Carrinho, ResumoDaCompra
     )
 
 app_name = 'produto'
@@ -22,6 +22,6 @@ urlpatterns = [
         'carrinho/', Carrinho.as_view(),
         name='carrinho'
         ),
-    path('finalizar/', Finalizar.as_view(), name='finalizar'),
+    path('resumodacompra/', ResumoDaCompra.as_view(), name='resumodacompra'),
     path('<slug:slug>', DetalheProduto.as_view(), name='detalhe'),
 ]
