@@ -100,11 +100,13 @@ class AdicionarAoCarrinho(View):
                 'produto_nome': produto_nome,
                 'variacao_nome': variacao_nome,
                 'variacao_id': variacao_id,
-                'preco_unitario': float(preco_unitario),
-                'preco_unitario_promocional': float(preco_unitario_promocional),
+                'preco_unitario': preco_unitario,
+                'preco_unitario_promocional': preco_unitario_promocional,
                 'quantidade': quantidade,
                 'slug': slug,
                 'imagem': imagem,
+                'preco_quantitativo_promocional': preco_unitario_promocional,
+                'preco_quantitativo': preco_unitario,
             }
         
         self.request.session.save()

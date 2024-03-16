@@ -48,7 +48,7 @@
                         
                         {% else %}
 
-                            <td>{{linha.preco_quantitativo }}</td>
+                            <td>{{linha.preco_quantitativo | formata_preco }}</td>
 
                         {% endif %}
                         </tr>
