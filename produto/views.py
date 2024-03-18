@@ -2,12 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.views import View
-from django.http import HttpResponse
 from django.contrib import messages
 
-from pprint import pprint
-
 from . import models
+from perfil.models import Perfil
 
 
 class ListaProduto(ListView):
@@ -26,10 +24,6 @@ class DetalheProduto(DetailView):
 
 class AdicionarAoCarrinho(View):
     def get(self, *args, **kwargs):
-        # TODO: remover linhas abaixo
-        # if self.request.session.get('carrinho'):
-        #     del self.request.session['carrinho']
-        #     self.request.session.save()
 
         http_referer = self.request.META.get(
             'HTTP_REFERER',
@@ -62,7 +56,7 @@ class AdicionarAoCarrinho(View):
             imagem = imagem.url
         else:
             imagem = ''
-        
+
         if variacao.estoque < 1:
             messages.error(
                 self.request,
@@ -87,7 +81,7 @@ class AdicionarAoCarrinho(View):
                         f'{variacao_estoque}x no seu carrinho '
                 )
                 quantidade_carrinho = variacao_estoque
-            
+
             carrinho[variacao_id]['quantidade'] = quantidade_carrinho
             carrinho[variacao_id]['preco_quantitativo'] = preco_unitario * \
                 quantidade_carrinho
@@ -108,7 +102,7 @@ class AdicionarAoCarrinho(View):
                 'preco_quantitativo_promocional': preco_unitario_promocional,
                 'preco_quantitativo': preco_unitario,
             }
-        
+
         self.request.session.save()
         messages.success(
             self.request,
@@ -129,13 +123,13 @@ class RemoverDoCarrinho(View):
 
         if not variacao_id:
             return redirect(http_referer)
-        
+
         if not self.request.session.get('carrinho'):
             return redirect(http_referer)
-        
+
         if variacao_id not in self.request.session.get('carrinho'):
             return redirect(http_referer)
-        
+
         carrinho = self.request.session['carrinho'][variacao_id]
 
         messages.success(
@@ -155,8 +149,31 @@ class Carrinho(View):
             'carrinho': self.request.session.get('carrinho')
         }
         return render(self.request, 'produto/carrinho.html', context)
-    
 
 
 class ResumoDaCompra(View):
-    ...
+    def get(self, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('perfil:criar')
+
+        perfil = Perfil.objects.filter(usuario=self.request.user).exists()
+
+        if not perfil:
+            messages.error(
+                self.request,
+                'Perfil do usuário incompleto'
+            )
+            return redirect('perfil:criar')
+
+        if not self.request.session.get('carrinho'):
+            messages.error(
+                self.request,
+                'Seu carrinho esta vazio'
+            )
+            return redirect('produto:lista')
+
+        context = {
+            'usuario': self.request.user,
+            'carrinho': self.request.session['carrinho']
+        }
+        return render(self.request, 'produto/resumodacompra.html', context)
