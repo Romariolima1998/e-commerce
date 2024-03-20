@@ -13,6 +13,7 @@ class ListaProduto(ListView):
     template_name = 'produto/lista.html'
     context_object_name = 'produtos'
     paginate_by = 9
+    ordering = ['-id']
 
 
 class DetalheProduto(DetailView):

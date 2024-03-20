@@ -1,6 +1,5 @@
 
 def formata_preco(val):
-    print(val)
     return f'R$ {"{:.2f}".format(val)}'.replace('.', ',')
 
 
