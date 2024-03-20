@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load omfilters %}
 
+{% block titulo %}{% endblock titulo %}
+
 {% block conteudo %}
 
 <div class="row">
@@ -11,7 +13,7 @@
                 <div class="card">
 
                     {% if produto.imagem %}
-                        <a href="{{produto.slug}}">
+                    <a href="{{produto.slug}}">
                             <img class="card-img-top" src="{{produto.imagem.url}}" alt="{{produto.nome}}">
                         </a>
                     {% endif %}

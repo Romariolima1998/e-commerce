@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import os
 from pathlib import Path
 from django.contrib.messages import constants
 
@@ -45,9 +44,6 @@ INSTALLED_APPS = [
     'perfil',
     'crispy_forms',
     "crispy_bootstrap4",
-
-    # TODO: remover django toolbar
-    "debug_toolbar",
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
@@ -61,9 +57,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # TODO: remover django toolbar
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -163,10 +156,3 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 7
 SESSION_SAVE_EVERY_REQUEST = False
 
 # SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickSerializer'
-
-# TODO: remover django toolbar
-INTERNAL_IPS = [
-    # ...
-    "127.0.0.1",
-    # ...
-]
